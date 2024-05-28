@@ -105,7 +105,7 @@ systemctl start node_exporter
 check_status
 
 # Check Node Exporter service status
-echo "Checking Node Exporter service status..."
-systemctl status node_exporter
+# echo "Checking Node Exporter service status..."
+# systemctl status node_exporter
 
 echo "Node Exporter installation completed successfully."
