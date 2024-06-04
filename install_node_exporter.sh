@@ -18,6 +18,15 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
+# Detect the operating system
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+  OS=$ID
+else
+  echo "Unsupported operating system."
+  exit 1
+fi
+
 # Variables
 VERSION="1.8.1"  # Change this to the latest version if needed
 USER="prometheus"
@@ -25,13 +34,26 @@ GROUP="prometheus"
 DOWNLOAD_URL="https://github.com/prometheus/node_exporter/releases/download/v$VERSION/node_exporter-$VERSION.linux-amd64.tar.gz"
 
 # Update package list and install necessary packages
-echo "Updating package list..."
-apt-get update
-check_status
+case $OS in
+  ubuntu|debian)
+    echo "Updating package list..."
+    apt-get update
+    check_status
 
-echo "Installing wget and tar..."
-apt-get install -y wget tar
-check_status
+    echo "Installing wget and tar..."
+    apt-get install -y wget tar
+    check_status
+    ;;
+  centos|fedora|rhel)
+    echo "Installing wget and tar..."
+    yum install -y wget tar
+    check_status
+    ;;
+  *)
+    echo "Unsupported operating system: $OS"
+    exit 1
+    ;;
+esac
 
 # Create system group and user for node_exporter
 echo "Creating system group and user for node_exporter..."
