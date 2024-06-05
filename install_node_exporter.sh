@@ -96,7 +96,7 @@ rm -rf node_exporter-$VERSION.linux-amd64.tar.gz node_exporter-$VERSION.linux-am
 
 # Create systemd service file
 echo "Creating systemd service file for Node Exporter..."
-cat <<EOF | tee /etc/systemd/system/node_exporter.service
+cat <<EOF | tee /etc/systemd/system/node-exporter.service
 [Unit]
 Description=Prometheus Node Exporter
 Wants=network-online.target
