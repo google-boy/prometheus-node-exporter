@@ -119,11 +119,11 @@ systemctl daemon-reload
 check_status
 
 echo "Enabling Node Exporter service..."
-systemctl enable node_exporter
+systemctl enable node-exporter
 check_status
 
 echo "Starting Node Exporter service..."
-systemctl start node_exporter
+systemctl start node-exporter
 check_status
 
 # Check Node Exporter service status
